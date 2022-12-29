@@ -1,0 +1,1 @@
+# Iniciando projeto e estudos para criação do game.
