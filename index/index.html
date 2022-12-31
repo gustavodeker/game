@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <style>
+        body{
+            background-color: rgba(0, 0, 0, 0.9);
+            text-align: center;
+            color: whitesmoke;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        h1,p{
+            animation: animate 2s linear infinite;
+        }
+        @keyframes animate{
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        #dragSG{
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0);
+            animation: animate 2s linear infinite;
+        }
+        #gif{
+            position: relative;
+            top: 0px;
+        }
+    </style>
+
+    <script>
+        var dx;
+        var dy;
+        var px;
+        var py;
+        var vel;
+        var obj;
+        var tmp;
+        var atack;
+
+        function inicia(){
+            dx=0;
+            dy=0;
+            px=0;
+            py=220;
+            vel=5;
+            atack="d";
+            gif=document.getElementById("gif");
+            gif.src="ps1-parado-d.gif";
+            document.addEventListener("keydown",teclaDw);
+            document.addEventListener("keyup",teclaUp);
+            tmp=setInterval(enterFrame,20);
+            
+        }
+
+        function teclaDw(){
+            var tecla=event.keyCode;
+            if(tecla==37){
+                dx=-1;gif.src="ps1-corrida-e.gif";
+                atack="e";
+            }else if(tecla==38){
+                dy=-1;
+            }else if(tecla==39){
+                dx=1;gif.src="ps1-corrida-d.gif";
+                atack="d";
+            }else if(tecla==40){
+                dy=1;
+            }else if(tecla==16){
+                vel=10;
+            }else if(tecla==81){
+                gif.src="ps1-atack-"+atack+".gif";
+            }
+        }
+
+        function teclaUp(){
+            var tecla=event.keyCode;
+            if(tecla==37){
+                dx=0;gif.src="ps1-parado-e.gif";
+            }else if(tecla==38){
+                dy=0;
+            }else if(tecla==39){
+                dx=0;gif.src="ps1-parado-d.gif";
+            }else if(tecla==40){
+                dy=0;
+            }else if(tecla==16){
+                vel=5;
+            }else if(tecla==81){
+                tmp=setInterval(gif.src="ps1-parado-"+atack+".gif",2000);
+            }
+        }
+
+        function enterFrame(){
+            px+=dx*vel;
+            py+=dy*vel;
+            gif.style.left=px+"px";
+            gif.style.top=py+"px";
+        }
+
+        window.addEventListener("load",inicia);
+
+    </script>
+</head>
+<body>
+    
+    <h1>Em desenvolvimento...</h1>
+    <p>Utilize as teclas direcionais para testar a movimentação: ← ↑ → ↓</p>
+    <p>Shit: Corra mais rápido</p>
+    <p>Q: Atack</p>
+    <img id="dragSG" src="dragSG.png" alt="" srcset="">
+    <img id="gif" src="ps1-corrida-d.gif" alt="" srcset="">
+
+</body>
+</html>
